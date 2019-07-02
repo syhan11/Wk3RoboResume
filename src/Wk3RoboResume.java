@@ -7,10 +7,10 @@ public class Wk3RoboResume {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
         String msg;
-        String sysMsg = "Enter your option or \"Q\" to quit.\n" +
+        String sysMsg = "\n>>>>> MAIN MENU <<<<<\nEnter your option or \"Q\" to quit.\n" +
                         "\t1. Enter a new resume\n" +
                         "\t2. Edit a resume\n" +
-                        "\t3. Search resumes\n" +
+                        "\t3. Search candidates\n" +
                         "\t4. Print resumes";
         boolean cont = true;
 
@@ -123,9 +123,13 @@ public class Wk3RoboResume {
         String msg;
         int yr;
 
+        /*
+         * it will add a resume into ArrayList of resumes
+         * until the user is ready to quit
+         */
         do {
             found = false;
-            System.out.println("Entering a new resume information...");
+            System.out.println(">>>>> NEW RESUME <<<<<");
 
             // get personal information
             person = new Person();
@@ -135,8 +139,11 @@ public class Wk3RoboResume {
             person.setName(msg);
 
             do {
-                System.out.println("Enter an email");
+                // check for valid email address
+                System.out.println("Enter an email address");
                 msg = keyBD.nextLine();
+
+                // looks for "@" and ".com"
                 if (person.checkEmailFormat(msg)) {
                     person.setEmail(msg);
                     found = true;
@@ -147,13 +154,14 @@ public class Wk3RoboResume {
 
             found = false;
              do {
-                System.out.println("Enter a phone number without any \"-\"");
-                msg = keyBD.nextLine();
-                if (person.checkPhoneFormat(msg)) {
+                 // looks for phone number without any "-"
+                 System.out.println("Enter a phone number without any \"-\"");
+                 msg = keyBD.nextLine();
+                 if (person.checkPhoneFormat(msg)) {
                     person.setPhone(msg);
                     found = true;
-                }
-                else
+                 }
+                 else
                     System.out.println("Not a proper phone number.  Try again.");
              } while (!found);
 
@@ -166,7 +174,7 @@ public class Wk3RoboResume {
             // get skills
             setSkill(keyBD, person);
 
-
+            // add newly entered information to the all resume array list
             allResume.add(person);
 
             System.out.println("Would you like to continue (Y/N)?");
@@ -190,12 +198,14 @@ public class Wk3RoboResume {
         boolean cont = true, found = false;
         Person candidate;
 
-        System.out.println(">>>>> MODIFYING A RESUME <<<<<\n");
+        System.out.println(">>>>> EDITING A RESUME <<<<<\n");
+
         do {
+            // need to search for a resume to edit
             System.out.println(sysMsg1);
             option = keyBD.nextLine();
             switch (option) {
-                case "1":
+                case "1": // search by name
                     System.out.println("Enter a name to search");
                     msg = keyBD.nextLine();
                     candidate = searchResumeByName(msg);
@@ -207,7 +217,7 @@ public class Wk3RoboResume {
 
                     break;
 
-                case "2":
+                case "2": // search by phone number
                     found = false;
                     System.out.println("Enter a phone number without any \"-\" to search");
                     msg = keyBD.nextLine();
@@ -220,7 +230,7 @@ public class Wk3RoboResume {
 
                     break;
 
-                case "3":
+                case "3":     // search by an email address
                     found = false;
                     System.out.println("Enter an email address to search");
                     msg = keyBD.nextLine();
@@ -235,7 +245,7 @@ public class Wk3RoboResume {
                     break;
 
                 case "q":
-                case "Q":
+                case "Q":   // terminate the search
                     cont = false;
                     break;
 
@@ -255,7 +265,7 @@ public class Wk3RoboResume {
         boolean cont = true;
         Recruiter headhunter;
 
-        System.out.println(">>>>> SEARCHING FOR A RESUME <<<<<");
+        System.out.println(">>>>> SEARCHING FOR CANDIDATES <<<<<");
 
         do {
             candidate = null;
@@ -277,71 +287,8 @@ public class Wk3RoboResume {
 
     }
 
-    /*********
-    public static void searchResume(Scanner keyBD){
-     String sysMsg1 = "Enter your option or \"Q\" to quit.\n" +
-     "\t1. Search by a name\n" +
-     "\t2. Search by a phone number\n" +
-     "\t3. Search by an email address";
-
-     String option, msg;
-     Person candidate;
-     boolean cont = true;
-
-     System.out.println(">>>>> SEARCHING FOR A RESUME <<<<<");
-
-     do {
-     candidate = null;
-     msg = null;
-     System.out.println(sysMsg1);
-     option = keyBD.nextLine();
-     switch (option) {
-     case "1":
-     System.out.println("Enter a name to search");
-     msg = keyBD.nextLine();
-     candidate = searchResumeByName(msg);
-     break;
-
-     case "2":
-     System.out.println("Enter a phone number without any \"-\" to search");
-     msg = keyBD.nextLine();
-     candidate = searchResumeByPhone(msg);
-     break;
-
-     case "3":
-     System.out.println("Enter an email address to search");
-     msg = keyBD.nextLine();
-     candidate = searchResumeByEmail(msg);
-     break;
-
-     case "q":
-     case "Q":
-     cont = false;
-     break;
-
-     default:
-     System.out.println("Unknown option!");
-     }
-
-     if (candidate != null) {
-     System.out.println(candidate.getAllInfo());
-     }
-     else if (cont) {
-     // candidate is NULL AND cont is TRUE
-     System.out.println(msg + " not found!");
-     }
-
-     } while (cont);
-
-
-     }
-
-     *********************/
-
-
 
     public static void printAllResume () {
-
 
         for (Person resume : allResume) {
             System.out.println("\n==========================================");
