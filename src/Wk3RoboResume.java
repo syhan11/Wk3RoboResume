@@ -248,65 +248,96 @@ public class Wk3RoboResume {
     }
 
     public static void searchResume(Scanner keyBD){
-        String sysMsg1 = "Enter your option or \"Q\" to quit.\n" +
-                "\t1. Search by a name\n" +
-                "\t2. Search by a phone number\n" +
-                "\t3. Search by an email address";
+        String sysMsg1 = "Enter a skill you are searching for or type \"Q\" to quit";
 
         String option, msg;
         Person candidate;
         boolean cont = true;
+        Recruiter headhunter;
 
         System.out.println(">>>>> SEARCHING FOR A RESUME <<<<<");
-        System.out.println("in working... Please come back later...\n");
 
-        /****
         do {
             candidate = null;
             msg = null;
             System.out.println(sysMsg1);
             option = keyBD.nextLine();
-            switch (option) {
-                case "1":
-                    System.out.println("Enter a name to search");
-                    msg = keyBD.nextLine();
-                    candidate = searchResumeByName(msg);
-                    break;
-
-                case "2":
-                    System.out.println("Enter a phone number without any \"-\" to search");
-                    msg = keyBD.nextLine();
-                    candidate = searchResumeByPhone(msg);
-                    break;
-
-                case "3":
-                    System.out.println("Enter an email address to search");
-                    msg = keyBD.nextLine();
-                    candidate = searchResumeByEmail(msg);
-                    break;
-
-                case "q":
-                case "Q":
-                    cont = false;
-                    break;
-
-                default:
-                    System.out.println("Unknown option!");
+            if (option.equalsIgnoreCase("q")) {
+                cont = false;
+            }
+            else{
+                headhunter = new Recruiter(option, allResume);
+                System.out.println("\nCandidates with " + headhunter.getSkillSet() + " are:");
+                System.out.println(headhunter.printCandidates());
             }
 
-            if (candidate != null) {
-                System.out.println(candidate.getAllInfo());
-            }
-            else if (cont) {
-                // candidate is NULL AND cont is TRUE
-                System.out.println(msg + " not found!");
-            }
 
         } while (cont);
 
-    ****/
 
     }
+
+    /*********
+    public static void searchResume(Scanner keyBD){
+     String sysMsg1 = "Enter your option or \"Q\" to quit.\n" +
+     "\t1. Search by a name\n" +
+     "\t2. Search by a phone number\n" +
+     "\t3. Search by an email address";
+
+     String option, msg;
+     Person candidate;
+     boolean cont = true;
+
+     System.out.println(">>>>> SEARCHING FOR A RESUME <<<<<");
+
+     do {
+     candidate = null;
+     msg = null;
+     System.out.println(sysMsg1);
+     option = keyBD.nextLine();
+     switch (option) {
+     case "1":
+     System.out.println("Enter a name to search");
+     msg = keyBD.nextLine();
+     candidate = searchResumeByName(msg);
+     break;
+
+     case "2":
+     System.out.println("Enter a phone number without any \"-\" to search");
+     msg = keyBD.nextLine();
+     candidate = searchResumeByPhone(msg);
+     break;
+
+     case "3":
+     System.out.println("Enter an email address to search");
+     msg = keyBD.nextLine();
+     candidate = searchResumeByEmail(msg);
+     break;
+
+     case "q":
+     case "Q":
+     cont = false;
+     break;
+
+     default:
+     System.out.println("Unknown option!");
+     }
+
+     if (candidate != null) {
+     System.out.println(candidate.getAllInfo());
+     }
+     else if (cont) {
+     // candidate is NULL AND cont is TRUE
+     System.out.println(msg + " not found!");
+     }
+
+     } while (cont);
+
+
+     }
+
+     *********************/
+
 
 
     public static void printAllResume () {
