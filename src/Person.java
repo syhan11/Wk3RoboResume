@@ -42,12 +42,57 @@ public class Person {
         this.email = email;
     }
 
+    public boolean checkEmailFormat(String phone) {
+        if (phone.contains("@") & (phone.contains(".com")))
+            return true;
+        else
+            return false;
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean checkPhoneFormat(String phone) {
+        boolean found = true;
+
+        /*
+         * it will return true if
+         *      string is 10 characters long,
+         *      string does not contain any dash (-),
+         *      and string only contains a number
+         */
+
+        if (phone.length() != 10)
+            found = false;
+        else if (phone.contains("-"))
+            found = false;
+        else {
+            try {
+                int num = Integer.parseInt(phone);
+            } catch (NumberFormatException e) {
+                found = false;
+            }
+        }
+
+        return found;
+    }
+
+    public String printPhone() {
+        /*
+         * Format phone number
+         */
+        String phoneMsg = "", phone = getPhone();
+
+        if ((phone != null) && (phone.length() == 10))
+            phoneMsg = "(" + phone.substring( 0,3 ) + ") " +
+                    phone.substring( 3,6 ) + "-" + phone.substring( 6,10 );
+
+        return phoneMsg;
     }
 
     public int getEducationSz() {
@@ -105,9 +150,10 @@ public class Person {
             skillInfo = skillInfo + tmpSkill.printInfo() + "\n";
         }
 
+
         info = getName() + "\n" +
                getEmail() + "\n" +
-               getPhone() + "\n" +
+               printPhone() + "\n" +
                "Education\n" + eduInfo +
                "Experience\n" + expInfo +
                "Skills\n" + skillInfo;

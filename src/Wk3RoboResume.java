@@ -5,48 +5,126 @@ public class Wk3RoboResume {
     public static ArrayList<Person> allResume = new ArrayList<Person>();
 
     public static void main(String[] args) {
-        Person person;
         Scanner keyboard = new Scanner(System.in);
+        String msg;
+        String sysMsg = "Enter your option or \"Q\" to quit.\n" +
+                        "\t1. Enter a new resume\n" +
+                        "\t2. Edit a resume\n" +
+                        "\t3. Search resumes\n" +
+                        "\t4. Print resumes";
+        boolean cont = true;
+
+        System.out.println("Welcome to the RoboResume!\n" + sysMsg);
+        do {
+            msg = keyboard.nextLine();
+            switch (msg) {
+                case "1":
+                    enterResume(keyboard);
+                    break;
+
+                case "2":
+                    editResume(keyboard);
+                    break;
+
+                case "3":
+                    searchResume(keyboard);
+                    break;
+
+                case "4":
+                    printAllResume();
+                    break;
+
+                case "q":
+                case "Q":
+                    cont = false;
+                    break;
+
+                default:
+                    System.out.println("Unknown option!");
+            }
+
+            if (cont)
+                System.out.println(sysMsg);
+
+        } while (cont);
+
+    }
+
+    public static void enterResume(Scanner keyBD) {
+        boolean cont = true, found;
+        Person person;
         String msg;
         int yr;
 
-        boolean cont = true;
-
         do {
-            System.out.println("Entering a resume...");
+            found = false;
+            System.out.println("Entering a new resume information...");
+
             // get personal information
             person = new Person();
 
             System.out.println("Enter a name");
-            msg = keyboard.nextLine();
+            msg = keyBD.nextLine();
             person.setName(msg);
 
-            System.out.println("Enter an email");
-            msg = keyboard.nextLine();
-            person.setEmail(msg);
+            do {
+                System.out.println("Enter an email");
+                msg = keyBD.nextLine();
+                if (person.checkEmailFormat(msg)) {
+                    person.setEmail(msg);
+                    found = true;
+                }
+                else
+                    System.out.println("Not a proper email address.  Try again.");
+            } while (!found);
 
-            System.out.println("Enter a phone number");
-            msg = keyboard.nextLine();
-            person.setPhone(msg);
+            found = false;
+             do {
+                System.out.println("Enter a phone number without any \"-\"");
+                msg = keyBD.nextLine();
+                if (person.checkPhoneFormat(msg)) {
+                    person.setPhone(msg);
+                    found = true;
+                }
+                else
+                    System.out.println("Not a proper phone number.  Try again.");
+             } while (!found);
 
             // get education information
-            setEducation(keyboard, person);
+            setEducation(keyBD, person);
 
             // get experiences
-            setExperience(keyboard, person);
+            setExperience(keyBD, person);
 
             // get skills
-            setSkill(keyboard, person);
+            setSkill(keyBD, person);
 
 
             allResume.add(person);
 
             System.out.println("Would you like to continue (Y/N)?");
-            msg = keyboard.nextLine();
+            msg = keyBD.nextLine();
             if (msg.equalsIgnoreCase("n"))
                 cont = false;
 
         } while (cont);
+
+    }
+
+
+    public static void editResume(Scanner keyBD){
+        System.out.println("editResume");
+
+
+    }
+
+    public static void searchResume(Scanner keyBD){
+        System.out.println("searchResume");
+    }
+
+
+    public static void printAllResume () {
+
 
         for (Person resume : allResume) {
             System.out.println(resume.getinfo());
