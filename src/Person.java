@@ -42,7 +42,7 @@ public class Person {
         this.email = email;
     }
 
-    public boolean checkEmailFormat(String phone) {
+    public static boolean checkEmailFormat(String phone) {
         if (phone.contains("@") & (phone.contains(".com")))
             return true;
         else
@@ -57,7 +57,7 @@ public class Person {
         this.phone = phone;
     }
 
-    public boolean checkPhoneFormat(String phone) {
+    public static boolean checkPhoneFormat(String phone) {
         boolean found = true;
 
         /*
@@ -73,7 +73,7 @@ public class Person {
             found = false;
         else {
             try {
-                int num = Integer.parseInt(phone);
+                long num = Long.parseLong(phone);
             } catch (NumberFormatException e) {
                 found = false;
             }
@@ -129,7 +129,16 @@ public class Person {
         this.skill.add(skill);
     }
 
-    public String getinfo(){
+    public String getPersonalInfo(){
+
+        String info = getName() + "\n" +
+                      getEmail() + "\n" +
+                      printPhone();
+
+        return info;
+    }
+
+    public String getAllInfo(){
         String eduInfo = "", expInfo = "", skillInfo = "", info;
         School tmpSchool;
         Company tmpCo;

@@ -16,7 +16,7 @@ public class Company {
         this.jobDesc = new ArrayList<String>();
     }
 
-    public Company(String name, String title, String startDate, String endDate, String jobDesc) {
+    public Company(String name, String title, String startDate, String endDate) {
         this.name = name;
         this.title = title;
         this.startDate = startDate;
